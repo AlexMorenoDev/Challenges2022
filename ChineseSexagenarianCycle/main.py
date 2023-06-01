@@ -7,7 +7,7 @@
 # - Cada elemento se repite dos años seguidos.
 # - El último ciclo sexagenario comenzó en 1984 (Madera Rata).
 
-def chinese_zodiac(year):
+def chinese_sexagenarian_cycle_calculator(year):
     initial_year = 604
     if year < initial_year:
         return "ERROR: Chinese Sexagenarian Cycle started in the year 604!"
@@ -19,19 +19,19 @@ def chinese_zodiac(year):
     year_animal = animals[subs_result%len(animals)]
     year_element = elements[int((subs_result/2)%len(elements))]
     
-    return f"Chinese sexagenary cycle --> Year {year}:\n- Animal: {year_animal}\n- Element: {year_element}"
+    return f"Chinese Sexagenarian Cycle --> Year {year}:\n- Animal: {year_animal}\n- Element: {year_element}"
 
 
 def main():
-    print(chinese_zodiac(1946))
-    print(chinese_zodiac(1984))
-    print(chinese_zodiac(604))
-    print(chinese_zodiac(603))
-    print(chinese_zodiac(1987))
-    print(chinese_zodiac(2022))
-    print(chinese_zodiac(664))
-    print(chinese_zodiac(1143))
-    print(chinese_zodiac(1678))
+    print(chinese_sexagenarian_cycle_calculator(1946))
+    print(chinese_sexagenarian_cycle_calculator(1984))
+    print(chinese_sexagenarian_cycle_calculator(604))
+    print(chinese_sexagenarian_cycle_calculator(603))
+    print(chinese_sexagenarian_cycle_calculator(1987))
+    print(chinese_sexagenarian_cycle_calculator(2022))
+    print(chinese_sexagenarian_cycle_calculator(664))
+    print(chinese_sexagenarian_cycle_calculator(1143))
+    print(chinese_sexagenarian_cycle_calculator(1678))
 
 
 if __name__ == "__main__":
