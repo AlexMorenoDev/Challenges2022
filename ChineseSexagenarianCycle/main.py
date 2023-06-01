@@ -10,11 +10,31 @@
 def chinese_zodiac(year):
     initial_year = 604
     if year < initial_year:
-        print("ERROR: Chinese Sexagenarian Cycle started in the year 604!")
+        return "ERROR: Chinese Sexagenarian Cycle started in the year 604!"
 
     animals = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Sheep", "Monkey", "Rooster", "Dog", "Pig"]
     elements = ["Wood", "Fire", "Earth", "Metal", "Water"]
 
-    # TO DO
+    subs_result = year - initial_year
+    year_animal = animals[subs_result%len(animals)]
+    year_element = elements[int((subs_result/2)%len(elements))]
+    
+    return f"Chinese sexagenary cycle --> Year {year}:\n- Animal: {year_animal}\n- Element: {year_element}"
+
+
+def main():
+    print(chinese_zodiac(1946))
+    print(chinese_zodiac(1984))
+    print(chinese_zodiac(604))
+    print(chinese_zodiac(603))
+    print(chinese_zodiac(1987))
+    print(chinese_zodiac(2022))
+    print(chinese_zodiac(664))
+    print(chinese_zodiac(1143))
+    print(chinese_zodiac(1678))
+
+
+if __name__ == "__main__":
+    main()
 
     
