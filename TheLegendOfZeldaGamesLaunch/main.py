@@ -47,7 +47,7 @@ def select_game(input_msg):
 
 
 def get_dates_difference(lowest_name, lowest_date, highest_name, highest_date):
-    result =  highest_date - lowest_date
+    result = highest_date - lowest_date
     return f"Between '{lowest_name}' and '{highest_name}' launches passed {result.days} days ({round(result.days/365, 2)} years)"
 
 
