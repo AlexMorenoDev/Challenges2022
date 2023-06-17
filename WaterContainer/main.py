@@ -13,55 +13,59 @@
  *
  *   Representando bloque con ⏹︎ y agua con 💧, quedarán atrapadas 7 unidades de agua.
  *   Suponemos que existe un suelo impermeable en la parte inferior que retiene el agua.
+ *   En los lados como no se dice nada, se sobreentiende que no hay paredes.
 """
 
 def calculate_water_units(array):
-    units = 0
-    length = len(array)
-    for i in range(length):
-        if i > 0 and i < (length - 1):
-            if array[i] < array[i-1] and array[i] < array[i+1]:
-                if array[i-1] != array[i+1]:
-                    units += min(array[i-1], array[i+1]) - array[i]
-                    array[i] += min(array[i-1], array[i+1]) - array[i]
-                else:
-                    units += array[i+1] - array[i]
-                    array[i] += array[i+1] - array[i]
-        elif i == 0:
-            if array[i] < array[i+1]:
-                units += array[i+1] - array[i]
-                array[i] = array[i+1] - array[i]
+    water_units = 0
+    array_length = len(array)
+
+    max_value = 0
+    temp_units = 0
+    for i in range(array_length):
+        current_value = array[i]
+        if current_value >= max_value:
+            max_value = current_value
+            if temp_units > 0:
+                water_units += temp_units
+                temp_units = 0
         else:
-            if array[i] < array[i-1]:
-                units += array[i-1] - array[i]
-                array[i] = array[i-1] - array[i]
+            temp_units += max_value - current_value
     
-    lowest = 0
-    greatest = 0
-    pos_list = []
-    for i in range(length):
-        current = array[i]
-        if current >= greatest:
-            lowest = greatest
-            greatest = current
-            pos_list.append(i)
-
-        if len(pos_list) == 2:
-            for i in range(pos_list[0]+1, pos_list[1]):
-                if array[i] < lowest:
-                    units += lowest - array[i]
-            
-            pos_list = [pos_list[1]]
+    max_value = 0
+    temp_units = 0
+    for i in reversed(range(array_length)):
+        current_value = array[i]
+        if current_value > max_value:
+            max_value = current_value
+            if temp_units > 0:
+                water_units += temp_units
+                temp_units = 0
+        elif current_value < max_value:
+            temp_units += max_value - current_value
 
 
-    return units
+    return water_units
+
 
 def main():
-    # Probar con el segundo de aquí: https://github.com/mouredev/Weekly-Challenge-2022-Kotlin/pull/1039/files
-    # Falta corregir ese caso
-    array = [3, 1, 6, 3, 0, 4]
-    print(calculate_water_units(array))
-    
+    print(calculate_water_units([4, 0, 3, 6, 1, 3])) # 7
+    print(calculate_water_units([3, 1, 6, 3, 0, 4])) # 7
+    print(calculate_water_units([3, 2, 1, 0, 3])) # 6
+    print(calculate_water_units([2, 0, 4, 0, 5, 0, 3, 0, 5, 0, 4, 0, 5, 0, 2])) # 31
+    print(calculate_water_units([5, 4, 3, 2, 1, 0, 1, 2, 3, 4, 5])) # 25
+    print(calculate_water_units([1, 2, 1, 0, 1, 2, 3, 2, 1, 2, 3, 0, 2, 1])) # 10
+    print(calculate_water_units([2, 1, 3, 1, 2, 1, 4, 1, 4])) # 9
+    print(calculate_water_units([1, 3, 2, 1, 2, 0, 4, 1, 2, 4, 1])) # 12
+    print(calculate_water_units([3, 0, 2, 1, 4, 0, 2, 3, 2, 1, 4, 2, 5, 1, 3, 1, 2, 0, 2])) # 25
+    print(calculate_water_units([1, 2, 4, 3, 3, 3, 2, 1, 1])) # 0
+    print(calculate_water_units([1, 0, 2, 0, 3, 0, 4, 0, 1, 0, 4, 0, 3, 0, 2, 0, 1])) # 23
+    print(calculate_water_units([5, 0, 4, 1, 3, 0, 3, 1, 4, 0, 5])) # 29
+    print(calculate_water_units([2, 0, 3, 1, 5, 3, 5, 1, 3, 0, 2])) # 10
+    print(calculate_water_units([5, 5, 5, 5, 5, 4, 5, 5, 5, 5, 5])) # 1
+    print(calculate_water_units([5, 1, 1, 2, 3, 5, 3, 2, 1, 1, 5])) # 26
+    print(calculate_water_units([0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0])) # 4
+
 
 if __name__ == '__main__':
     main()
